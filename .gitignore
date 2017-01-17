@@ -1,4 +1,6 @@
 data/*
+!data/data_read_me.txt
 .vagrant
+*~
 
 

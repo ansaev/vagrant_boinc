@@ -38,6 +38,7 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   config.vm.synced_folder "data", "/bp_src", type: "nfs", mount_options:['nolock,vers=3,udp,noatime,actimeo=1']
+  config.vm.synced_folder '.', '/vagrant', disabled: true
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -64,4 +65,6 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision :shell, path: "setup.sh"
+  config.vm.provision "file", source: "apache__boinc_server_mbp.conf", destination: "/bp_src/mbp/apache__boinc_server_mbp.conf"
+  config.vm.provision :shell, path: "configure_boinc_project.sh"
 end
